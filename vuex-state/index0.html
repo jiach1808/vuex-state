@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title></title>
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+    </head>
+    <body>
+
+         <div id="app"></div>
+        <script>
+           console.log(Vuex.mapState)   
+           const store = new Vuex.Store({
+                strict: true,
+                state: {
+                    thisvuex:"vuex用法",
+                    count: 5,
+                    msg:'wjc',
+                    str1:'用带参函数传值'
+                },
+                mutations: {
+                    increment (state) {
+                    state.count++
+                    }
+                }
+            })
+         const Counter  = {
+              template:`<div><h1>{{thisvuex}}</h1><p>{{name}}</p><h3>{{count}}</h3><p>{{str1}}</p></div>`,
+              // computed:{
+              //   count(){
+              //      return store.state.count
+              //   }
+              // }
+             // computed:Vuex.mapState(['count'])
+              computed:Vuex.mapState({
+                   thisvuex:"thisvuex",
+                   name:"msg",//变量重命名
+                   count:(state)=>state.count,//箭头函数
+                  str1:function(state){
+                    return state.str1
+                 }
+              })
+         }
+         const app = new Vue({
+            el:'#app',
+            store,
+            components:{ Counter },
+            template:`<div><Counter/></div>`
+         })
+
+        </script>
+    </body>
+</html>
